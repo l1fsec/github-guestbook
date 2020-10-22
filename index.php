@@ -9,6 +9,9 @@ if (!isset($_SESSION["loggedin"])) {
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
 	<meta charset="utf-8">
 	<title>Kniha návštěv</title>
+	<style type="text/css">
+		body {text-align: center;}
+	</style>
 </head>
 <body>
 	<h1> Návštěvní kniha </h1>
@@ -43,11 +46,11 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
   die("Připojení se nezdařilo: " . $conn->connect_error);
 }
-$sql = "SELECT hodnoceni, text_zpravy, jmeno FROM gbook";
+$sql = "SELECT hodnoceni, text_zpravy, jmeno, datum FROM gbook";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   while($row = $result->fetch_assoc()) {
-    echo "Hodnoceni:"; for($i = 0; $i < $row["hodnoceni"]; $i++){ echo "<i class='fas fa-star'></i>"; }echo "<br>".  "Text zprávy: " ."<br>". $row["text_zpravy"] ."<br>". $row["jmeno"] . "<hr>";
+    echo  $row["jmeno"];echo " ("; echo  $row[ "datum"];echo ")";echo "<br>"."Text zprávy:" ."<br>". $row["text_zpravy"] ."<br>". "Hodnoceni:"; for($i = 0; $i < $row["hodnoceni"]; $i++){ echo "<i class='fas fa-star'></i>";} echo "<br>"; echo "<br>";
   }
 } else {
   echo "0 results";
